@@ -1,0 +1,29 @@
+
+name: Build Nginx Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Dockerfile
+        run: |
+          ls -la
+          test -f Dockerfile
+
+      - name: Build Docker Image
+        run: |
+          docker build -t nginx-project:latest .
+
+      - name: Verify Docker Image
+        run: |
+          docker images
